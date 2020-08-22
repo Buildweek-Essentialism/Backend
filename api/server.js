@@ -15,7 +15,7 @@ server.use(cors());
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
-server.use("/api/projects", restricted,  projectRouter)
+server.use("/api/projects", projectRouter)
 
 server.get("/", (req, res) => {
   res.json({ api: "up" });
