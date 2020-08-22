@@ -17,6 +17,7 @@ exports.up = function(knex) {
             .references('users.id')
             .onDelete('CASCADE')
             .onUpdate('CASCADE'); 
+        tbl.integer('value_a');
          
         
     })
