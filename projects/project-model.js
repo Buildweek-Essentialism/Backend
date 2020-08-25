@@ -2,13 +2,33 @@
 const db = require('../database/connection')
 
 function find() {
-    return db('projects as p')
+     return db('projects as p')
             .join("project_value as pv", "p.id", "pv.project_id")
             .join("values as v", "pv.value_id", "v.id")
             .select("p.*", "v.id as value_id", "v.value_name")
             .where({ "p.user_id": 1})
-            .orderBy("p.id")
-            
+            .orderBy("p.id") 
+    // return db("projects as p")
+    //     .with("val", qb => {
+    //         qb.select("pv.project_id", db.raw("JSON_GROUP_ARRAY(JSON_OBJECT('id', v.id, 'value_name', v.value_name)) as [values]"))
+    //             .from("project_value as pv")
+    //             .join("values as v", "v.id", "pv.value_id")
+    //             .join("projects", "projects.id", "pv.project_id")
+    //             .groupBy("pv.project_id")
+    //     })
+    //     .leftJoin("val", "val.project_id", "p.id")
+    //     .select("p.*", "val.values")
+    //     .then(projects => {
+    //         return projects.map(project => {
+    //             if(!project.values) {
+    //                 project.values = [];
+    //             } else {
+    //                 project.values = JSON.parse(project.values);
+    //             }
+    //             return project;
+    //         })
+    //     })
+
 }
 
 function findBy(filter) {
@@ -29,11 +49,7 @@ function findvalues(id) {
 }
 
 function add(projectData) {
-    return db('projects').insert(projectData);s
-}
-
-function addStep(stepData) {
-    return db('values','projects').insert(stepData)
+    return db('projects').insert(projectData);
 }
 
 
@@ -51,7 +67,7 @@ findBy,
 findById,
 findvalues,
 add,
-addStep,
+// addStep,
 update,
 remove
 }

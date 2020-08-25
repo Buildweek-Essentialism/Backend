@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 
   Projects.find()
   .then(projects => {
-    const userProjects = projects.filter(project => project.user_id === req.decodedJwt.subject);
+    //const userProjects = projects.filter(project => project.user_id === req.decodedJwt.subject);
     res.json(projects);
   })
   .catch(err => {
